@@ -10,6 +10,20 @@ cmake_minimum_required(VERSION 3.4.1)
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
+include_directories(include)
+
+set(FF ${CMAKE_CURRENT_SOURCE_DIR}/libs/${CMAKE_ANDROID_ARCH_ABI})
+
+add_library(avcodec SHARED IMPORTED)
+set_target_properties(avcodec PROPERTIES IMPORTED_LOCATION ${FF}/libavcodec.so)
+
+add_library(avformat SHARED IMPORTED)
+set_target_properties(avformat PROPERTIES IMPORTED_LOCATION ${FF}/libavformat.so)
+
+add_library(avutil SHARED IMPORTED)
+set_target_properties(avutil PROPERTIES IMPORTED_LOCATION ${FF}/libavutil.so)
+
+
 add_library( # Sets the name of the library.
              native-lib
 
@@ -39,6 +53,9 @@ find_library( # Sets the name of the path variable.
 target_link_libraries( # Specifies the target library.
                        native-lib
 
+                       avcodec
+                       avformat
+                       avutil
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib} )
