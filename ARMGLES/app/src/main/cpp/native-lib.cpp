@@ -65,22 +65,26 @@ GLuint loadShader(GLenum shaderType, const char* shaderSource)
 
 GLuint createProgram(const char* vertexSource, const char * fragmentSource)
 {
+
     GLuint vertexShader = loadShader(GL_VERTEX_SHADER, vertexSource);
     if (!vertexShader)
     {
         return 0;
     }
+
     GLuint fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentSource);
     if (!fragmentShader)
     {
         return 0;
     }
+
     GLuint program = glCreateProgram();
     if (program)
     {
         glAttachShader(program , vertexShader);
         glAttachShader(program, fragmentShader);
         glLinkProgram(program);
+
         GLint linkStatus = GL_FALSE;
         glGetProgramiv(program , GL_LINK_STATUS, &linkStatus);
         if( linkStatus != GL_TRUE)
@@ -106,6 +110,7 @@ GLuint createProgram(const char* vertexSource, const char * fragmentSource)
 
 GLuint simpleTriangleProgram;
 GLuint vPosition;
+
 bool setupGraphics(int w, int h)
 {
     simpleTriangleProgram = createProgram(glVertexShader, glFragmentShader);

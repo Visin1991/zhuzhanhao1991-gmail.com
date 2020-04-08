@@ -6,6 +6,7 @@ import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
+
 import javax.microedition.khronos.opengles.GL10;
 
 
@@ -59,11 +60,17 @@ public class GL_View extends GLSurfaceView
                             EGL10.EGL_STENCIL_SIZE, stencilSize,
                             EGL10.EGL_NONE
                     };
+
+            //获取config的数量
             int[] num_config = new int[1];
             egl.eglChooseConfig(display, configAttributes, null, 0, num_config);
+
+            //获取具体的Config
             int numConfigs = num_config[0];
             EGLConfig[] configs = new EGLConfig[numConfigs];
             egl.eglChooseConfig(display, configAttributes, configs, numConfigs, num_config);
+
+            //设置所有的Config
             return selectConfig(egl, display, configs);
         }
 
